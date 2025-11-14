@@ -1,6 +1,7 @@
 extends Node2D
 
 @export var monkey: Monkey
+@onready var instructions: Node = $Instructions
 
 var zookeepers: Array[Zookeeper] = []
 
@@ -17,5 +18,6 @@ func _process(delta: float) -> void:
 	pass
 
 func _on_monkey_break_free() -> void:
+	instructions.visible = false
 	for z in zookeepers:
 		z.startle()
