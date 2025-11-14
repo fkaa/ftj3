@@ -3,6 +3,7 @@
 [ext_resource type="Script" uid="uid://i2elwhg5qdyj" path="res://scene/character/monkey/monkey.gd" id="1_5jcpy"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_s537f"]
+height = 22.0
 
 [sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_s537f"]
 
@@ -13,5 +14,5 @@ script = ExtResource("1_5jcpy")
 shape = SubResource("CapsuleShape2D_s537f")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-scale = Vector2(20, 30)
+scale = Vector2(20, 22)
 texture = SubResource("PlaceholderTexture2D_s537f")

@@ -1,5 +1,5 @@
 extends CharacterBody2D
-
+class_name Monkey
 
 const SPEED = 250.0
 const JUMP_VELOCITY = -300.0

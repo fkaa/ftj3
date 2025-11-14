@@ -1,0 +1,42 @@
+[gd_scene load_steps=6 format=3 uid="uid://btu6dd2a5m8jk"]
+
+[ext_resource type="Texture2D" uid="uid://benyh82ycecqw" path="res://asset/fx/z.png" id="1_50fiq"]
+[ext_resource type="Script" uid="uid://ru2xwxen638b" path="res://scene/character/zookeeper/zookeeper.gd" id="1_tutih"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_qmbn4"]
+
+[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_50fiq"]
+size = Vector2(7, 8)
+
+[sub_resource type="Curve" id="Curve_50fiq"]
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.1387755, 0.764045), -0.64427435, 0.0, 0, 0, Vector2(0.8897959, 0.8876405), -3.0766697, -3.0766697, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 4
+
+[node name="Zookeeper" type="CharacterBody2D"]
+script = ExtResource("1_tutih")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CapsuleShape2D_qmbn4")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture_filter = 2
+texture_repeat = 2
+scale = Vector2(2.857143, 3.75)
+texture = SubResource("PlaceholderTexture2D_50fiq")
+
+[node name="CPUParticles2D" type="CPUParticles2D" parent="."]
+position = Vector2(9, -14)
+amount = 2
+texture = ExtResource("1_50fiq")
+lifetime = 1.78
+direction = Vector2(0.89, -1.575)
+spread = 5.35
+gravity = Vector2(0, 0)
+initial_velocity_min = 27.21
+initial_velocity_max = 27.21
+angle_min = -5.0
+angle_max = 5.0
+scale_amount_curve = SubResource("Curve_50fiq")
+color = Color(0.24359998, 0.5568, 0.87, 1)
+
+[node name="NavigationAgent2D" type="NavigationAgent2D" parent="."]
