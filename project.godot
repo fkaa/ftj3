@@ -11,12 +11,13 @@ config_version=5
 [application]
 
 config/name="monkey-eat-banana"
+run/main_scene="uid://c6s5y3nxa0xvb"
 config/features=PackedStringArray("4.5", "GL Compatibility")
 config/icon="res://icon.svg"
 
 [display]
 
-window/size/viewport_width=500
+window/size/viewport_width=608
 window/size/viewport_height=400
 
 [rendering]

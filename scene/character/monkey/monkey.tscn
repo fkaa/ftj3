@@ -1,0 +1,17 @@
+[gd_scene load_steps=4 format=3 uid="uid://bgehrir0shjkw"]
+
+[ext_resource type="Script" uid="uid://i2elwhg5qdyj" path="res://scene/character/monkey/monkey.gd" id="1_5jcpy"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_s537f"]
+
+[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_s537f"]
+
+[node name="Monkey" type="CharacterBody2D"]
+script = ExtResource("1_5jcpy")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CapsuleShape2D_s537f")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+scale = Vector2(20, 30)
+texture = SubResource("PlaceholderTexture2D_s537f")
