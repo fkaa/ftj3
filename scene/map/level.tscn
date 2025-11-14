@@ -1,11 +1,15 @@
-[gd_scene load_steps=10 format=4 uid="uid://c6s5y3nxa0xvb"]
+[gd_scene load_steps=12 format=4 uid="uid://c6s5y3nxa0xvb"]
 
 [ext_resource type="Script" uid="uid://bejxu7a4bxp86" path="res://scene/map/level.gd" id="1_2ddnm"]
 [ext_resource type="TileSet" uid="uid://dp0w5rdqjrw6" path="res://asset/tileset.tres" id="1_o3xit"]
+[ext_resource type="Texture2D" uid="uid://dneuv8xxx2btj" path="res://asset/gorilla.jpg" id="2_cx6pn"]
 [ext_resource type="PackedScene" uid="uid://bgehrir0shjkw" path="res://scene/character/monkey/monkey.tscn" id="2_pcyw0"]
 [ext_resource type="PackedScene" uid="uid://btu6dd2a5m8jk" path="res://scene/character/zookeeper/zookeeper.tscn" id="4_kpw1k"]
 [ext_resource type="PackedScene" uid="uid://dliekub8m1fdo" path="res://scene/stuff/banana/banana.tscn" id="5_x4you"]
 [ext_resource type="Texture2D" uid="uid://dmer5wb5rb4ig" path="res://asset/fx/instructions.png" id="6_iw0oh"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_cx6pn"]
+shadow_color = Color(0, 0, 0, 1)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_cx6pn"]
 atlas = ExtResource("6_iw0oh")
@@ -22,6 +26,12 @@ region = Rect2(-0.26559258, 108.79132, 40.71337, 34.3519)
 [node name="Level" type="Node2D" node_paths=PackedStringArray("monkey")]
 script = ExtResource("1_2ddnm")
 monkey = NodePath("Monkey")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture_filter = 2
+position = Vector2(-543, 900)
+scale = Vector2(25.824375, 23.850775)
+texture = ExtResource("2_cx6pn")
 
 [node name="TileMapLayer" type="TileMapLayer" parent="."]
 position = Vector2(0, 8)
@@ -42,6 +52,15 @@ target = NodePath("../Monkey")
 position = Vector2(-254, 64)
 
 [node name="Instructions" type="Node2D" parent="."]
+position = Vector2(-37, 2)
+
+[node name="ColorRect" type="ColorRect" parent="Instructions"]
+visible = false
+offset_left = -272.0
+offset_top = -212.0
+offset_right = 341.0
+offset_bottom = 198.0
+color = Color(0.033999998, 0.1, 0.066999994, 0.2509804)
 
 [node name="MoveLabel" type="Label" parent="Instructions"]
 anchors_preset = 8
@@ -55,7 +74,9 @@ offset_right = 243.0
 offset_bottom = -30.0
 grow_horizontal = 2
 grow_vertical = 2
+rotation = -0.019025754
 text = "Move to break free of the cage!!"
+label_settings = SubResource("LabelSettings_cx6pn")
 horizontal_alignment = 1
 vertical_alignment = 1
 
@@ -65,13 +86,15 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -274.0
-offset_top = -57.0
-offset_right = -29.0
-offset_bottom = -34.0
+offset_left = -262.00003
+offset_top = -63.0
+offset_right = -17.00003
+offset_bottom = -40.0
 grow_horizontal = 2
 grow_vertical = 2
+rotation = 0.06171936
 text = "throw banana"
+label_settings = SubResource("LabelSettings_cx6pn")
 horizontal_alignment = 1
 vertical_alignment = 1
 
