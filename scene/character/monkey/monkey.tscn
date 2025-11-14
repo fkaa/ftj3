@@ -1,4 +1,4 @@
-[gd_scene load_steps=6 format=3 uid="uid://bgehrir0shjkw"]
+[gd_scene load_steps=9 format=3 uid="uid://bgehrir0shjkw"]
 
 [ext_resource type="Script" uid="uid://i2elwhg5qdyj" path="res://scene/character/monkey/monkey.gd" id="1_5jcpy"]
 [ext_resource type="PackedScene" uid="uid://51gc0k1kynhr" path="res://scene/fx/cage/cage.tscn" id="2_d2rcb"]
@@ -6,23 +6,54 @@
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_s537f"]
 height = 22.0
 
-[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_s537f"]
-
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_d2rcb"]
 size = Vector2(27, 27)
+
+[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_s537f"]
+
+[sub_resource type="Animation" id="Animation_d2rcb"]
+resource_name = "new_animation"
+length = 2.0
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("visuals:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1.1, 1.1333333, 1.1713629, 1.2),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 0,
+"values": [Vector2(0, 0), Vector2(0, 0), Vector2(-10, 0), Vector2(10, 0), Vector2(0, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_vi7kd"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("visuals:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_mokmx"]
+_data = {
+&"RESET": SubResource("Animation_vi7kd"),
+&"new_animation": SubResource("Animation_d2rcb")
+}
 
 [node name="Monkey" type="CharacterBody2D"]
 script = ExtResource("1_5jcpy")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CapsuleShape2D_s537f")
-
-[node name="Sprite2D" type="Sprite2D" parent="."]
-scale = Vector2(20, 22)
-texture = SubResource("PlaceholderTexture2D_s537f")
-
-[node name="Cage" parent="." instance=ExtResource("2_d2rcb")]
-position = Vector2(1, 12)
 
 [node name="BananaArea" type="Area2D" parent="."]
 collision_layer = 2
@@ -31,5 +62,20 @@ collision_mask = 2
 [node name="CollisionShape2D" type="CollisionShape2D" parent="BananaArea"]
 position = Vector2(-0.5, -1.5)
 shape = SubResource("RectangleShape2D_d2rcb")
+
+[node name="visuals" type="Node2D" parent="."]
+
+[node name="Sprite2D" type="Sprite2D" parent="visuals"]
+scale = Vector2(20, 22)
+texture = SubResource("PlaceholderTexture2D_s537f")
+
+[node name="Cage" parent="visuals" instance=ExtResource("2_d2rcb")]
+position = Vector2(1, 12)
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_mokmx")
+}
+autoplay = "new_animation"
 
 [connection signal="body_entered" from="BananaArea" to="." method="_on_banana_area_body_entered"]

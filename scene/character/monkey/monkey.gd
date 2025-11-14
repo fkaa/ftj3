@@ -8,7 +8,9 @@ const JUMP_VELOCITY = -300.0
 @export var run_speed: float = 1500.0
 @export var run_slowdown: float = 3000.0
 
-@onready var cage: Node2D = $Cage
+@onready var visuals: Node2D = $visuals
+@onready var cage: Node2D = $visuals/Cage
+@onready var animation_player: AnimationPlayer = $AnimationPlayer
 
 var bananas: int = 0
 
@@ -45,6 +47,7 @@ func _physics_process(delta: float) -> void:
 			cage.break_cage()
 			cage = null
 			break_free.emit()
+			animation_player.stop()
 	
 	if direction:
 		velocity.x += direction * run_speed * delta
