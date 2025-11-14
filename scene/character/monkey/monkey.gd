@@ -10,7 +10,21 @@ const JUMP_VELOCITY = -300.0
 
 @onready var cage: Node2D = $Cage
 
+var bananas: int = 0
+
 signal break_free
+const BANANA = preload("uid://dliekub8m1fdo")
+
+func _process(delta: float) -> void:
+	if Input.is_action_just_pressed("banana_drop"):
+		if bananas > 0:
+			var banana: Banana = BANANA.instantiate()
+			banana.position = position
+			banana.is_fresh = false
+			banana.linear_velocity = Vector2(100.0, -100.0)
+			get_parent().add_child(banana)
+			bananas -= 1
+			pass
 
 func _physics_process(delta: float) -> void:
 	# Add the gravity.
@@ -43,3 +57,9 @@ func _physics_process(delta: float) -> void:
 		velocity.x = max_speed
 
 	move_and_slide()
+
+
+func _on_banana_area_body_entered(body: Node2D) -> void:
+	if body is Banana and body.is_fresh:
+		bananas += 1
+		body.queue_free()

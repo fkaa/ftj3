@@ -1,4 +1,4 @@
-[gd_scene load_steps=5 format=3 uid="uid://bgehrir0shjkw"]
+[gd_scene load_steps=6 format=3 uid="uid://bgehrir0shjkw"]
 
 [ext_resource type="Script" uid="uid://i2elwhg5qdyj" path="res://scene/character/monkey/monkey.gd" id="1_5jcpy"]
 [ext_resource type="PackedScene" uid="uid://51gc0k1kynhr" path="res://scene/fx/cage/cage.tscn" id="2_d2rcb"]
@@ -7,6 +7,9 @@
 height = 22.0
 
 [sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_s537f"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_d2rcb"]
+size = Vector2(27, 27)
 
 [node name="Monkey" type="CharacterBody2D"]
 script = ExtResource("1_5jcpy")
@@ -20,3 +23,13 @@ texture = SubResource("PlaceholderTexture2D_s537f")
 
 [node name="Cage" parent="." instance=ExtResource("2_d2rcb")]
 position = Vector2(1, 12)
+
+[node name="BananaArea" type="Area2D" parent="."]
+collision_layer = 2
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="BananaArea"]
+position = Vector2(-0.5, -1.5)
+shape = SubResource("RectangleShape2D_d2rcb")
+
+[connection signal="body_entered" from="BananaArea" to="." method="_on_banana_area_body_entered"]

@@ -1,7 +1,7 @@
 extends Node2D
 
 @export var monkey: Monkey
-@onready var instructions: Node = $Instructions
+@onready var instructions: Node2D = $Instructions
 
 var zookeepers: Array[Zookeeper] = []
 

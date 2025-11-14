@@ -10,6 +10,7 @@ const JUMP_VELOCITY = -400.0
 @onready var zzz_particles: CPUParticles2D = $zzzParticles
 @onready var surprise_particles: CPUParticles2D = $surpriseParticles
 
+var sleeping = true
 
 func _ready() -> void:
 	navigation_agent_2d.target_position = target.position
@@ -19,8 +20,11 @@ func startle():
 	velocity.y = JUMP_VELOCITY
 	zzz_particles.emitting = false
 	surprise_particles.emitting = true
+	sleeping = false
 	
 func _physics_process(delta: float) -> void:
+	navigation_agent_2d.target_position = target.position
+
 	if not is_on_floor():
 		velocity += get_gravity() * delta
 	
@@ -28,8 +32,11 @@ func _physics_process(delta: float) -> void:
 		return
 	
 	navigation_agent_2d.velocity = velocity
-	var target_position = navigation_agent_2d.get_next_path_position()
-
+	if not sleeping:
+		var target_position = navigation_agent_2d.get_next_path_position()
+		var direction = position.direction_to(target_position) * 50.0
+		velocity.x = sign(direction.x) * 100.0
+	
 	# Add the gravity.
 
 	# Handle jump.
@@ -45,3 +52,8 @@ func _physics_process(delta: float) -> void:
 	##	velocity.x = move_toward(velocity.x, 0, SPEED)
 
 	move_and_slide()
+
+
+func _on_navigation_agent_2d_navigation_finished() -> void:
+	print("finish nav")
+	pass # Replace with function body.
