@@ -17,7 +17,7 @@ collision_visibility_mode = 1
 navigation_visibility_mode = 1
 
 [node name="Monkey" parent="." instance=ExtResource("2_pcyw0")]
-position = Vector2(-122, 51)
+position = Vector2(-109, 41)
 
 [node name="Camera2D" type="Camera2D" parent="."]
 

@@ -1,6 +1,7 @@
-[gd_scene load_steps=4 format=3 uid="uid://bgehrir0shjkw"]
+[gd_scene load_steps=5 format=3 uid="uid://bgehrir0shjkw"]
 
 [ext_resource type="Script" uid="uid://i2elwhg5qdyj" path="res://scene/character/monkey/monkey.gd" id="1_5jcpy"]
+[ext_resource type="PackedScene" uid="uid://51gc0k1kynhr" path="res://scene/fx/cage/cage.tscn" id="2_d2rcb"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_s537f"]
 height = 22.0
@@ -16,3 +17,6 @@ shape = SubResource("CapsuleShape2D_s537f")
 [node name="Sprite2D" type="Sprite2D" parent="."]
 scale = Vector2(20, 22)
 texture = SubResource("PlaceholderTexture2D_s537f")
+
+[node name="Cage" parent="." instance=ExtResource("2_d2rcb")]
+position = Vector2(1, -13)
