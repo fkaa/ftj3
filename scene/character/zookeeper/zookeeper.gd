@@ -7,7 +7,8 @@ const SPEED = 300.0
 const JUMP_VELOCITY = -400.0
 
 @export var target: Node2D
-@onready var cpu_particles_2d: CPUParticles2D = $CPUParticles2D
+@onready var zzz_particles: CPUParticles2D = $zzzParticles
+@onready var surprise_particles: CPUParticles2D = $surpriseParticles
 
 
 func _ready() -> void:
@@ -16,7 +17,8 @@ func _ready() -> void:
 	
 func startle():
 	velocity.y = JUMP_VELOCITY
-	cpu_particles_2d.emitting = false
+	zzz_particles.emitting = false
+	surprise_particles.emitting = true
 	
 func _physics_process(delta: float) -> void:
 	if not is_on_floor():

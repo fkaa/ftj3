@@ -1,7 +1,8 @@
-[gd_scene load_steps=6 format=3 uid="uid://btu6dd2a5m8jk"]
+[gd_scene load_steps=7 format=3 uid="uid://btu6dd2a5m8jk"]
 
 [ext_resource type="Texture2D" uid="uid://benyh82ycecqw" path="res://asset/fx/z.png" id="1_50fiq"]
 [ext_resource type="Script" uid="uid://ru2xwxen638b" path="res://scene/character/zookeeper/zookeeper.gd" id="1_tutih"]
+[ext_resource type="Texture2D" uid="uid://dacdx7s52vgjo" path="res://asset/fx/exclamation.png" id="3_nsayb"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_qmbn4"]
 
@@ -9,7 +10,7 @@
 size = Vector2(7, 8)
 
 [sub_resource type="Curve" id="Curve_50fiq"]
-_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.1387755, 0.764045), -0.64427435, 0.0, 0, 0, Vector2(0.8897959, 0.8876405), -3.0766697, -3.0766697, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.1387755, 0.764045), -0.64427435, 4.4468446, 0, 0, Vector2(0.9020408, 0.8651686), -6.5761538, -6.5761538, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
 point_count = 4
 
 [node name="Zookeeper" type="CharacterBody2D"]
@@ -24,7 +25,7 @@ texture_repeat = 2
 scale = Vector2(2.857143, 3.75)
 texture = SubResource("PlaceholderTexture2D_50fiq")
 
-[node name="CPUParticles2D" type="CPUParticles2D" parent="."]
+[node name="zzzParticles" type="CPUParticles2D" parent="."]
 position = Vector2(9, -14)
 amount = 2
 texture = ExtResource("1_50fiq")
@@ -38,5 +39,25 @@ angle_min = -5.0
 angle_max = 5.0
 scale_amount_curve = SubResource("Curve_50fiq")
 color = Color(0.24359998, 0.5568, 0.87, 1)
+
+[node name="surpriseParticles" type="CPUParticles2D" parent="."]
+position = Vector2(0, -17)
+emitting = false
+amount = 1
+texture = ExtResource("3_nsayb")
+lifetime = 0.99
+one_shot = true
+local_coords = true
+direction = Vector2(0.03, -1.575)
+spread = 5.35
+gravity = Vector2(0, 0)
+initial_velocity_min = 57.29
+initial_velocity_max = 57.29
+damping_min = 13.533
+damping_max = 13.533
+angle_min = -5.0
+angle_max = 5.0
+scale_amount_curve = SubResource("Curve_50fiq")
+color = Color(0.95, 0.8803333, 0.532, 1)
 
 [node name="NavigationAgent2D" type="NavigationAgent2D" parent="."]
