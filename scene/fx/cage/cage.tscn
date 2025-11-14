@@ -13,7 +13,7 @@ tracks/0/path = NodePath("Left:position")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.98),
+"times": PackedFloat32Array(0.008333334, 0.98),
 "transitions": PackedFloat32Array(1, 1),
 "update": 0,
 "values": [Vector2(0.06464386, -25.03756), Vector2(-52.999996, -42)]
@@ -25,7 +25,7 @@ tracks/1/path = NodePath("Left:rotation")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
-"times": PackedFloat32Array(0, 0.98),
+"times": PackedFloat32Array(0.008333334, 0.98),
 "transitions": PackedFloat32Array(1, 1),
 "update": 0,
 "values": [0.0, -6.1418138]
@@ -37,7 +37,7 @@ tracks/2/path = NodePath("Left:scale")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
-"times": PackedFloat32Array(0, 0.98),
+"times": PackedFloat32Array(0.008333334, 0.98),
 "transitions": PackedFloat32Array(1, 1),
 "update": 0,
 "values": [Vector2(1, 1), Vector2(1.495, 1.495)]
@@ -49,7 +49,7 @@ tracks/3/path = NodePath("Right:position")
 tracks/3/interp = 1
 tracks/3/loop_wrap = true
 tracks/3/keys = {
-"times": PackedFloat32Array(0, 0.99),
+"times": PackedFloat32Array(0.008333334, 0.99),
 "transitions": PackedFloat32Array(1, 1),
 "update": 0,
 "values": [Vector2(0.06464386, -25.03756), Vector2(60.999992, -48.999992)]
@@ -61,7 +61,7 @@ tracks/4/path = NodePath("Right:rotation")
 tracks/4/interp = 1
 tracks/4/loop_wrap = true
 tracks/4/keys = {
-"times": PackedFloat32Array(0, 0.99),
+"times": PackedFloat32Array(0.008333334, 0.99),
 "transitions": PackedFloat32Array(1, 1),
 "update": 0,
 "values": [0.0, 6.044075]
@@ -141,7 +141,7 @@ tracks/0/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [Vector2(0, 0)]
+"values": [Vector2(0.06464386, -25.03756)]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
@@ -150,10 +150,10 @@ tracks/1/path = NodePath("Left:rotation")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
+"times": PackedFloat32Array(0, 0.008333334),
+"transitions": PackedFloat32Array(1, 1),
 "update": 0,
-"values": [0.0]
+"values": [0.0, 0.0]
 }
 tracks/2/type = "value"
 tracks/2/imported = false
@@ -162,10 +162,10 @@ tracks/2/path = NodePath("Left:scale")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
+"times": PackedFloat32Array(0, 0.008333334),
+"transitions": PackedFloat32Array(1, 1),
 "update": 0,
-"values": [Vector2(1, 1)]
+"values": [Vector2(1, 1), Vector2(1, 1)]
 }
 tracks/3/type = "value"
 tracks/3/imported = false
@@ -177,7 +177,7 @@ tracks/3/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [Vector2(0, 0)]
+"values": [Vector2(0.06464386, -25.03756)]
 }
 tracks/4/type = "value"
 tracks/4/imported = false
@@ -186,10 +186,10 @@ tracks/4/path = NodePath("Right:rotation")
 tracks/4/interp = 1
 tracks/4/loop_wrap = true
 tracks/4/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
+"times": PackedFloat32Array(0, 0.008333334),
+"transitions": PackedFloat32Array(1, 1),
 "update": 0,
-"values": [0.0]
+"values": [0.0, 0.0]
 }
 tracks/5/type = "value"
 tracks/5/imported = false
@@ -250,12 +250,14 @@ _data = {
 script = ExtResource("1_bvwm7")
 
 [node name="Left" type="Polygon2D" parent="."]
+position = Vector2(0.06464386, -25.03756)
 offset = Vector2(0, 25)
 texture = ExtResource("1_mmrc1")
 polygon = PackedVector2Array(-0.07421112, -0.51265717, -3.3397598, -8.909794, 4.1243515, -14.974388, -6.1388016, -27.103577, 2.2583237, -35.50071, -2.8732529, -49.96244, -28.064644, -49.96244, -28.064644, -0.046150208)
 uv = PackedVector2Array(33.483124, 63.504417, 30.217575, 55.10728, 37.681686, 49.042686, 27.418533, 36.913498, 35.81566, 28.516363, 30.684082, 14.054636, 5.492691, 14.054636, 5.492691, 63.970924)
 
 [node name="Right" type="Polygon2D" parent="."]
+position = Vector2(0.06464386, -25.03756)
 offset = Vector2(0, 25)
 texture = ExtResource("1_mmrc1")
 polygon = PackedVector2Array(-0.05011987, -0.49558258, -3.3156686, -8.892719, 4.1484427, -14.957314, -6.1147103, -27.086502, 2.282415, -35.483635, -2.8491616, -49.945366, 28.706118, -49.945366, 26.999449, 1.2509232)

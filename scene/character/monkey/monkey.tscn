@@ -19,4 +19,4 @@ scale = Vector2(20, 22)
 texture = SubResource("PlaceholderTexture2D_s537f")
 
 [node name="Cage" parent="." instance=ExtResource("2_d2rcb")]
-position = Vector2(1, -13)
+position = Vector2(1, 12)
