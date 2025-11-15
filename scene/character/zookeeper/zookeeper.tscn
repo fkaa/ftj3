@@ -1,10 +1,12 @@
-[gd_scene load_steps=7 format=3 uid="uid://btu6dd2a5m8jk"]
+[gd_scene load_steps=18 format=3 uid="uid://btu6dd2a5m8jk"]
 
 [ext_resource type="Texture2D" uid="uid://benyh82ycecqw" path="res://asset/fx/z.png" id="1_50fiq"]
 [ext_resource type="Script" uid="uid://ru2xwxen638b" path="res://scene/character/zookeeper/zookeeper.gd" id="1_tutih"]
 [ext_resource type="Texture2D" uid="uid://dacdx7s52vgjo" path="res://asset/fx/exclamation.png" id="3_nsayb"]
+[ext_resource type="Texture2D" uid="uid://pwkuljb6n4oe" path="res://asset/spritesheets/sprite_sheet_keeper.png" id="4_54yyc"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_qmbn4"]
+height = 46.0
 
 [sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_50fiq"]
 size = Vector2(7, 8)
@@ -13,6 +15,87 @@ size = Vector2(7, 8)
 _data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.1387755, 0.764045), -0.64427435, 4.4468446, 0, 0, Vector2(0.9020408, 0.8651686), -6.5761538, -6.5761538, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
 point_count = 4
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_54yyc"]
+atlas = ExtResource("4_54yyc")
+region = Rect2(0, 128, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_w2ss5"]
+atlas = ExtResource("4_54yyc")
+region = Rect2(64, 128, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_b8i56"]
+atlas = ExtResource("4_54yyc")
+region = Rect2(0, 64, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ap704"]
+atlas = ExtResource("4_54yyc")
+region = Rect2(64, 64, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_h1lj4"]
+atlas = ExtResource("4_54yyc")
+region = Rect2(128, 64, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_35408"]
+atlas = ExtResource("4_54yyc")
+region = Rect2(0, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_cxfkh"]
+atlas = ExtResource("4_54yyc")
+region = Rect2(64, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_nix7b"]
+atlas = ExtResource("4_54yyc")
+region = Rect2(128, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_al8rd"]
+atlas = ExtResource("4_54yyc")
+region = Rect2(192, 0, 64, 64)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_w2ss5"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_54yyc")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_w2ss5")
+}],
+"loop": true,
+"name": &"sleep",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_b8i56")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ap704")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_h1lj4")
+}],
+"loop": true,
+"name": &"surprised",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_35408")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_cxfkh")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_nix7b")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_al8rd")
+}],
+"loop": true,
+"name": &"walk",
+"speed": 5.0
+}]
+
 [node name="Zookeeper" type="CharacterBody2D"]
 script = ExtResource("1_tutih")
 
@@ -20,6 +103,7 @@ script = ExtResource("1_tutih")
 shape = SubResource("CapsuleShape2D_qmbn4")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
+visible = false
 texture_filter = 2
 texture_repeat = 2
 scale = Vector2(2.857143, 3.75)
@@ -61,5 +145,12 @@ scale_amount_curve = SubResource("Curve_50fiq")
 color = Color(0.95, 0.8803333, 0.532, 1)
 
 [node name="NavigationAgent2D" type="NavigationAgent2D" parent="."]
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+position = Vector2(0, -9)
+sprite_frames = SubResource("SpriteFrames_w2ss5")
+animation = &"sleep"
+frame = 1
+frame_progress = 0.7116551
 
 [connection signal="navigation_finished" from="NavigationAgent2D" to="." method="_on_navigation_agent_2d_navigation_finished"]

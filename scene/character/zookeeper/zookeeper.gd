@@ -10,10 +10,14 @@ const JUMP_VELOCITY = -400.0
 @onready var zzz_particles: CPUParticles2D = $zzzParticles
 @onready var surprise_particles: CPUParticles2D = $surpriseParticles
 
+@onready var animated_sprite_2d: AnimatedSprite2D = $AnimatedSprite2D
+
+
 var sleeping = true
 
 func _ready() -> void:
 	navigation_agent_2d.target_position = target.position
+	animated_sprite_2d.play("sleep")
 	pass
 	
 func startle():
@@ -21,6 +25,8 @@ func startle():
 	zzz_particles.emitting = false
 	surprise_particles.emitting = true
 	sleeping = false
+	animated_sprite_2d.play("walk")
+	
 	
 func _physics_process(delta: float) -> void:
 	navigation_agent_2d.target_position = target.position
@@ -36,6 +42,11 @@ func _physics_process(delta: float) -> void:
 		var target_position = navigation_agent_2d.get_next_path_position()
 		var direction = position.direction_to(target_position) * 50.0
 		velocity.x = sign(direction.x) * 100.0
+		
+		if direction.x > 0:
+			animated_sprite_2d.flip_h = true
+		else:
+			animated_sprite_2d.flip_h = false
 	
 	# Add the gravity.
 
