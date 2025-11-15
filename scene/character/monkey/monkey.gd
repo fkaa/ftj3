@@ -11,6 +11,9 @@ const JUMP_VELOCITY = -300.0
 @onready var visuals: Node2D = $visuals
 @onready var cage: Node2D = $visuals/Cage
 @onready var animation_player: AnimationPlayer = $AnimationPlayer
+func _ready() -> void:
+	$AnimatedSprite2D.play("run")
+
 
 var last_dir: float = 0
 var bananas: int = 0
@@ -54,8 +57,23 @@ func _physics_process(delta: float) -> void:
 	
 	if direction:
 		velocity.x = direction * run_speed * 0.3
+		print(direction)
+		if is_on_floor():
+			$AnimatedSprite2D.play("run")
+		if direction == 1:
+			$AnimatedSprite2D.flip_h = true
+		else:
+			$AnimatedSprite2D.flip_h = false
 	elif is_on_floor():
 		velocity.x = move_toward(velocity.x, 0, delta * run_slowdown)
+	
+	if !is_on_floor():
+		$AnimatedSprite2D.play("jump")
+	else:
+		if abs(velocity.x) > 0:
+			$AnimatedSprite2D.play("run")
+		else:
+			$AnimatedSprite2D.play("idle")
 
 	if velocity.x < -max_speed:
 		velocity.x = -max_speed

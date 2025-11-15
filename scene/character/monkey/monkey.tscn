@@ -1,10 +1,11 @@
-[gd_scene load_steps=9 format=3 uid="uid://bgehrir0shjkw"]
+[gd_scene load_steps=19 format=3 uid="uid://bgehrir0shjkw"]
 
 [ext_resource type="Script" uid="uid://i2elwhg5qdyj" path="res://scene/character/monkey/monkey.gd" id="1_5jcpy"]
-[ext_resource type="PackedScene" uid="uid://51gc0k1kynhr" path="res://scene/fx/cage/cage.tscn" id="2_d2rcb"]
+[ext_resource type="Texture2D" uid="uid://dv63dkhl61p4h" path="res://sprite_sheet.png" id="2_d2rcb"]
+[ext_resource type="PackedScene" uid="uid://51gc0k1kynhr" path="res://scene/fx/cage/cage.tscn" id="3_vi7kd"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_s537f"]
-height = 22.0
+height = 28.0
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_d2rcb"]
 size = Vector2(27, 27)
@@ -49,6 +50,80 @@ _data = {
 &"new_animation": SubResource("Animation_d2rcb")
 }
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_pq1nq"]
+atlas = ExtResource("2_d2rcb")
+region = Rect2(0, 128, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_e0ri7"]
+atlas = ExtResource("2_d2rcb")
+region = Rect2(64, 128, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_16y8v"]
+atlas = ExtResource("2_d2rcb")
+region = Rect2(0, 64, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_fegx4"]
+atlas = ExtResource("2_d2rcb")
+region = Rect2(64, 64, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_d2rcb"]
+atlas = ExtResource("2_d2rcb")
+region = Rect2(0, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_vi7kd"]
+atlas = ExtResource("2_d2rcb")
+region = Rect2(64, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_mokmx"]
+atlas = ExtResource("2_d2rcb")
+region = Rect2(128, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ojdko"]
+atlas = ExtResource("2_d2rcb")
+region = Rect2(192, 0, 64, 64)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_e0ri7"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_pq1nq")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_e0ri7")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_16y8v")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_fegx4")
+}],
+"loop": true,
+"name": &"jump",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_d2rcb")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_vi7kd")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_mokmx")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ojdko")
+}],
+"loop": true,
+"name": &"run",
+"speed": 5.0
+}]
+
 [node name="Monkey" type="CharacterBody2D"]
 script = ExtResource("1_5jcpy")
 
@@ -63,19 +138,31 @@ collision_mask = 2
 position = Vector2(-0.5, -1.5)
 shape = SubResource("RectangleShape2D_d2rcb")
 
+[node name="Sprite2D" type="Sprite2D" parent="."]
+visible = false
+
 [node name="visuals" type="Node2D" parent="."]
 
 [node name="Sprite2D" type="Sprite2D" parent="visuals"]
+visible = false
 scale = Vector2(20, 22)
 texture = SubResource("PlaceholderTexture2D_s537f")
 
-[node name="Cage" parent="visuals" instance=ExtResource("2_d2rcb")]
-position = Vector2(1, 12)
+[node name="Cage" parent="visuals" instance=ExtResource("3_vi7kd")]
+position = Vector2(2, 11)
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
 &"": SubResource("AnimationLibrary_mokmx")
 }
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+position = Vector2(-3, -18)
+sprite_frames = SubResource("SpriteFrames_e0ri7")
+animation = &"jump"
 autoplay = "new_animation"
+frame = 1
+frame_progress = 0.7345635
+speed_scale = 1.5
 
 [connection signal="body_entered" from="BananaArea" to="." method="_on_banana_area_body_entered"]
