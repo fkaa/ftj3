@@ -12,6 +12,7 @@ const JUMP_VELOCITY = -300.0
 @onready var cage: Node2D = $visuals/Cage
 @onready var animation_player: AnimationPlayer = $AnimationPlayer
 
+var last_dir: float = 0
 var bananas: int = 0
 
 signal break_free
@@ -23,7 +24,7 @@ func _process(delta: float) -> void:
 			var banana: Banana = BANANA.instantiate()
 			banana.position = position
 			banana.is_fresh = false
-			banana.linear_velocity = Vector2(100.0, -100.0)
+			banana.linear_velocity = Vector2(last_dir * 100.0, -100.0)
 			get_parent().add_child(banana)
 			bananas -= 1
 			pass
@@ -42,6 +43,7 @@ func _physics_process(delta: float) -> void:
 	# As good practice, you should replace UI actions with custom gameplay actions.
 	var direction := Input.get_axis("ui_left", "ui_right")
 	if direction or jump:
+		last_dir = sign(direction)
 		if cage:
 			cage.reparent(get_parent())
 			cage.break_cage()
@@ -49,8 +51,9 @@ func _physics_process(delta: float) -> void:
 			break_free.emit()
 			animation_player.stop()
 	
+	
 	if direction:
-		velocity.x += direction * run_speed * delta
+		velocity.x = direction * run_speed * 0.3
 	elif is_on_floor():
 		velocity.x = move_toward(velocity.x, 0, delta * run_slowdown)
 
