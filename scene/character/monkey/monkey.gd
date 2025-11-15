@@ -3,6 +3,7 @@ class_name Monkey
 
 const SPEED = 250.0
 const JUMP_VELOCITY = -300.0
+const MONKEY_HOHO_1 = preload("uid://brm58to3dtst7")
 
 @export var max_speed: float = 250.0
 @export var run_speed: float = 1500.0
@@ -11,8 +12,13 @@ const JUMP_VELOCITY = -300.0
 @onready var visuals: Node2D = $visuals
 @onready var cage: Node2D = $visuals/Cage
 @onready var animation_player: AnimationPlayer = $AnimationPlayer
+
+var audio_manager: AudioManager
+
 func _ready() -> void:
 	$AnimatedSprite2D.play("run")
+	audio_manager = AudioManager.new()
+	add_child(audio_manager)
 
 
 var last_dir: float = 0
@@ -23,13 +29,14 @@ const BANANA = preload("uid://dliekub8m1fdo")
 
 func _process(delta: float) -> void:
 	if Input.is_action_just_pressed("banana_drop"):
-		if bananas > 0:
+		if true: #bananas > 0:
 			var banana: Banana = BANANA.instantiate()
 			banana.position = position
 			banana.is_fresh = false
 			banana.linear_velocity = Vector2(last_dir * 100.0, -100.0)
 			get_parent().add_child(banana)
 			bananas -= 1
+			audio_manager.play_audio(MONKEY_HOHO_1, 0.26)
 			pass
 
 func _physics_process(delta: float) -> void:
@@ -41,6 +48,8 @@ func _physics_process(delta: float) -> void:
 	var jump = Input.is_action_just_pressed("ui_accept") and is_on_floor()
 	if jump:
 		velocity.y = JUMP_VELOCITY
+		audio_manager.play_audio(MONKEY_HOHO_1, 0.26)
+		# audio_manager.play_audio(MONKEY_HOHO_1)
 
 	# Get the input direction and handle the movement/deceleration.
 	# As good practice, you should replace UI actions with custom gameplay actions.
