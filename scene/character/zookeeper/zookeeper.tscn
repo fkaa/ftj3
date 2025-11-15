@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=3 uid="uid://btu6dd2a5m8jk"]
+[gd_scene load_steps=24 format=3 uid="uid://btu6dd2a5m8jk"]
 
 [ext_resource type="Texture2D" uid="uid://benyh82ycecqw" path="res://asset/fx/z.png" id="1_50fiq"]
 [ext_resource type="Script" uid="uid://ru2xwxen638b" path="res://scene/character/zookeeper/zookeeper.gd" id="1_tutih"]
@@ -15,6 +15,10 @@ size = Vector2(7, 8)
 _data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.1387755, 0.764045), -0.64427435, 4.4468446, 0, 0, Vector2(0.9020408, 0.8651686), -6.5761538, -6.5761538, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
 point_count = 4
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_ttl53"]
+atlas = ExtResource("4_54yyc")
+region = Rect2(0, 256, 64, 64)
+
 [sub_resource type="AtlasTexture" id="AtlasTexture_54yyc"]
 atlas = ExtResource("4_54yyc")
 region = Rect2(0, 128, 64, 64)
@@ -22,6 +26,14 @@ region = Rect2(0, 128, 64, 64)
 [sub_resource type="AtlasTexture" id="AtlasTexture_w2ss5"]
 atlas = ExtResource("4_54yyc")
 region = Rect2(64, 128, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_f4ibi"]
+atlas = ExtResource("4_54yyc")
+region = Rect2(0, 192, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_4w4q8"]
+atlas = ExtResource("4_54yyc")
+region = Rect2(64, 192, 64, 64)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_b8i56"]
 atlas = ExtResource("4_54yyc")
@@ -34,6 +46,18 @@ region = Rect2(64, 64, 64, 64)
 [sub_resource type="AtlasTexture" id="AtlasTexture_h1lj4"]
 atlas = ExtResource("4_54yyc")
 region = Rect2(128, 64, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_xs8kn"]
+atlas = ExtResource("4_54yyc")
+region = Rect2(128, 64, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_s8d46"]
+atlas = ExtResource("4_54yyc")
+region = Rect2(64, 64, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_rf8yt"]
+atlas = ExtResource("4_54yyc")
+region = Rect2(0, 64, 64, 64)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_35408"]
 atlas = ExtResource("4_54yyc")
@@ -55,6 +79,14 @@ region = Rect2(192, 0, 64, 64)
 animations = [{
 "frames": [{
 "duration": 1.0,
+"texture": SubResource("AtlasTexture_ttl53")
+}],
+"loop": true,
+"name": &"knocked_out",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
 "texture": SubResource("AtlasTexture_54yyc")
 }, {
 "duration": 1.0,
@@ -66,6 +98,17 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
+"texture": SubResource("AtlasTexture_f4ibi")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_4w4q8")
+}],
+"loop": true,
+"name": &"slide",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
 "texture": SubResource("AtlasTexture_b8i56")
 }, {
 "duration": 1.0,
@@ -73,10 +116,19 @@ animations = [{
 }, {
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_h1lj4")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_xs8kn")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_s8d46")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_rf8yt")
 }],
-"loop": true,
+"loop": false,
 "name": &"surprised",
-"speed": 5.0
+"speed": 20.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -149,6 +201,8 @@ color = Color(0.95, 0.8803333, 0.532, 1)
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 position = Vector2(0, -9)
 sprite_frames = SubResource("SpriteFrames_w2ss5")
-animation = &"walk"
+animation = &"surprised"
+frame = 5
+frame_progress = 1.0
 
 [connection signal="navigation_finished" from="NavigationAgent2D" to="." method="_on_navigation_agent_2d_navigation_finished"]

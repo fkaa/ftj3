@@ -1,11 +1,12 @@
-[gd_scene load_steps=19 format=3 uid="uid://bgehrir0shjkw"]
+[gd_scene load_steps=20 format=3 uid="uid://bgehrir0shjkw"]
 
 [ext_resource type="Script" uid="uid://i2elwhg5qdyj" path="res://scene/character/monkey/monkey.gd" id="1_5jcpy"]
 [ext_resource type="Texture2D" uid="uid://dv63dkhl61p4h" path="res://asset/spritesheets/sprite_sheet.png" id="2_d2rcb"]
 [ext_resource type="PackedScene" uid="uid://51gc0k1kynhr" path="res://scene/fx/cage/cage.tscn" id="3_vi7kd"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_s537f"]
-height = 28.0
+radius = 8.0
+height = 36.0
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_pq1nq"]
 atlas = ExtResource("2_d2rcb")
@@ -38,6 +39,10 @@ region = Rect2(128, 0, 64, 64)
 [sub_resource type="AtlasTexture" id="AtlasTexture_ojdko"]
 atlas = ExtResource("2_d2rcb")
 region = Rect2(192, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_d1yac"]
+atlas = ExtResource("2_d2rcb")
+region = Rect2(0, 192, 64, 64)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_e0ri7"]
 animations = [{
@@ -78,6 +83,14 @@ animations = [{
 }],
 "loop": true,
 "name": &"run",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_d1yac")
+}],
+"loop": true,
+"name": &"wall_jump",
 "speed": 5.0
 }]
 
@@ -128,15 +141,13 @@ _data = {
 script = ExtResource("1_5jcpy")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, 13.96)
 shape = SubResource("CapsuleShape2D_s537f")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
-position = Vector2(-3, -18)
 sprite_frames = SubResource("SpriteFrames_e0ri7")
-animation = &"run"
-autoplay = "new_animation"
-frame = 2
-frame_progress = 0.39455724
+animation = &"idle"
+autoplay = "idle"
 speed_scale = 1.5
 
 [node name="BananaArea" type="Area2D" parent="."]
@@ -144,7 +155,7 @@ collision_layer = 2
 collision_mask = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="BananaArea"]
-position = Vector2(-0.5, -1.5)
+position = Vector2(0, 18)
 shape = SubResource("RectangleShape2D_d2rcb")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
@@ -158,7 +169,7 @@ scale = Vector2(20, 22)
 texture = SubResource("PlaceholderTexture2D_s537f")
 
 [node name="Cage" parent="visuals" instance=ExtResource("3_vi7kd")]
-position = Vector2(2, 11)
+position = Vector2(2, 32)
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {

@@ -97,9 +97,11 @@ func _physics_process(delta: float) -> void:
 
 		
 	
-	if !is_on_floor():
+	if !is_on_floor() and !on_wall:
 		$AnimatedSprite2D.play("jump")
 		has_landed = false
+	elif !is_on_floor() and on_wall:
+		$AnimatedSprite2D.play("wall_jump")
 	else:
 		if has_landed == false:
 			has_landed = true
