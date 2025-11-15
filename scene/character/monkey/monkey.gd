@@ -18,6 +18,7 @@ var audio_manager: AudioManager
 
 var run_timer = 0
 var has_landed = true
+var last_on_wall: bool = false
 
 func _ready() -> void:
 	$AnimatedSprite2D.play("run")
@@ -27,6 +28,8 @@ func _ready() -> void:
 
 var last_dir: float = 0
 var bananas: int = 0
+var jump_cooldown = 0.0
+const JUMP_COOLDOWN = 0.3
 
 signal break_free
 const BANANA = preload("uid://dliekub8m1fdo")
@@ -44,14 +47,25 @@ func _process(delta: float) -> void:
 			audio_manager.play_audio(load("res://asset/sfx/monkey/throw/throw.ogg"), -3.0, false, randf_range(0.5, 0.7))
 
 func _physics_process(delta: float) -> void:
+	var on_wall = is_on_wall_only()
+	if on_wall and not last_on_wall:
+		jump_cooldown = JUMP_COOLDOWN
 	# Add the gravity.
 	if not is_on_floor():
 		velocity += get_gravity() * delta
 
 	# Handle jump.
-	var jump = Input.is_action_just_pressed("ui_accept") and is_on_floor()
-	if jump:
-		velocity.y = JUMP_VELOCITY
+	var jump = Input.is_action_just_pressed("ui_accept")
+	if jump and (is_on_floor() or is_on_wall()):
+			
+		if is_on_wall_only():
+			jump_cooldown = 0
+			velocity.x = last_dir * JUMP_VELOCITY
+			last_dir = -last_dir
+			velocity.y = JUMP_VELOCITY
+		else:
+			velocity.y = JUMP_VELOCITY
+
 		audio_manager.play_audio(MONKEY_HOHO_1, 0.26)
 		audio_manager.play_audio_2d(MONKEY_FOOTSTEPS, self.position)
 		audio_manager.play_audio_2d(load("res://asset/sfx/monkey/jump/jump-001.ogg"), self.position)
@@ -61,7 +75,6 @@ func _physics_process(delta: float) -> void:
 	# As good practice, you should replace UI actions with custom gameplay actions.
 	var direction := Input.get_axis("ui_left", "ui_right")
 	if direction or jump:
-		last_dir = sign(direction)
 		if cage:
 			cage.reparent(get_parent())
 			cage.break_cage()
@@ -70,7 +83,9 @@ func _physics_process(delta: float) -> void:
 			animation_player.stop()
 	
 	if direction:
-		velocity.x = direction * run_speed * 0.3
+		if jump_cooldown <= 0:
+			last_dir = sign(direction)
+			velocity.x += direction * run_speed * delta
 		if is_on_floor():
 			$AnimatedSprite2D.play("run")
 		if direction == 1:
@@ -79,6 +94,8 @@ func _physics_process(delta: float) -> void:
 			$AnimatedSprite2D.flip_h = false
 	elif is_on_floor():
 		velocity.x = move_toward(velocity.x, 0, delta * run_slowdown)
+
+		
 	
 	if !is_on_floor():
 		$AnimatedSprite2D.play("jump")
@@ -101,6 +118,8 @@ func _physics_process(delta: float) -> void:
 	elif velocity.x > max_speed:
 		velocity.x = max_speed
 
+	last_on_wall = on_wall
+	jump_cooldown -= delta
 	move_and_slide()
 
 

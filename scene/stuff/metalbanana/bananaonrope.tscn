@@ -1,0 +1,24 @@
+[gd_scene load_steps=4 format=3 uid="uid://sbuo7flhrjtq"]
+
+[ext_resource type="Script" uid="uid://c8aihpbntivv5" path="res://scene/stuff/metalbanana/bananaonrope.gd" id="1_8ws5s"]
+[ext_resource type="PackedScene" uid="uid://yxtga3owr0ll" path="res://scene/stuff/metalbanana/metalbanana.tscn" id="1_hgqea"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_0x2ba"]
+
+[node name="Bananaonrope" type="Node2D"]
+rotation = -0.3000633
+script = ExtResource("1_8ws5s")
+
+[node name="StaticBody2D" type="StaticBody2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
+shape = SubResource("CircleShape2D_0x2ba")
+
+[node name="Line2D" type="Line2D" parent="."]
+points = PackedVector2Array(0, 0, 5, 20)
+width = 3.0
+default_color = Color(0.58, 0.31706664, 0.11599999, 1)
+
+[node name="MetalBanana" parent="." instance=ExtResource("1_hgqea")]
+position = Vector2(5, 20)
+freeze = true

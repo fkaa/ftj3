@@ -1,0 +1,29 @@
+[gd_scene load_steps=6 format=3 uid="uid://yxtga3owr0ll"]
+
+[ext_resource type="Script" uid="uid://dh6w7r54fk6w1" path="res://scene/stuff/metalbanana/metalbanana.gd" id="1_4ulp0"]
+[ext_resource type="Shader" uid="uid://cijfrlbydxchg" path="res://scene/stuff/metalbanana/metalbanana.gdshader" id="1_odjl5"]
+[ext_resource type="Texture2D" uid="uid://do24e27gcl17" path="res://asset/metalbananus.png" id="2_4ulp0"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_o7gdf"]
+size = Vector2(22, 22)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_6dffy"]
+shader = ExtResource("1_odjl5")
+shader_parameter/shine_color = Color(0.8247333, 0.89, 0.40049997, 0.9098039)
+shader_parameter/line_width = 0.16999999620016
+shader_parameter/angle = 2.35619455575942
+shader_parameter/speed = 4.40000006556528
+shader_parameter/wait_cycles = 6.5000000968578
+
+[node name="MetalBanana" type="RigidBody2D"]
+collision_layer = 2
+collision_mask = 2
+script = ExtResource("1_4ulp0")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(1, -2)
+shape = SubResource("RectangleShape2D_o7gdf")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+material = SubResource("ShaderMaterial_6dffy")
+texture = ExtResource("2_4ulp0")
