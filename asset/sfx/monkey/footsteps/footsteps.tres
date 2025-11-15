@@ -1,0 +1,17 @@
+[gd_resource type="AudioStreamRandomizer" load_steps=7 format=3 uid="uid://crx6mobaoofwd"]
+
+[ext_resource type="AudioStream" uid="uid://xlnd1puavsnn" path="res://asset/sfx/monkey/footsteps/footstep-001.ogg" id="1_14n5b"]
+[ext_resource type="AudioStream" uid="uid://c4kc0xaujc6wq" path="res://asset/sfx/monkey/footsteps/footstep-002.ogg" id="2_lexvq"]
+[ext_resource type="AudioStream" uid="uid://cqq8yl1pw72ep" path="res://asset/sfx/monkey/footsteps/footstep-003.ogg" id="3_0td8h"]
+[ext_resource type="AudioStream" uid="uid://cil5xmrqq7n3n" path="res://asset/sfx/monkey/footsteps/footstep-004.ogg" id="4_sxkfv"]
+[ext_resource type="AudioStream" uid="uid://btx01ci3380fd" path="res://asset/sfx/monkey/footsteps/footstep-005.ogg" id="5_yfcyo"]
+[ext_resource type="AudioStream" uid="uid://cbnwjsuw17fpi" path="res://asset/sfx/monkey/footsteps/footstep-006.ogg" id="6_pm5g3"]
+
+[resource]
+streams_count = 6
+stream_0/stream = ExtResource("1_14n5b")
+stream_1/stream = ExtResource("2_lexvq")
+stream_2/stream = ExtResource("3_0td8h")
+stream_3/stream = ExtResource("4_sxkfv")
+stream_4/stream = ExtResource("5_yfcyo")
+stream_5/stream = ExtResource("6_pm5g3")

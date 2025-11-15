@@ -149,8 +149,6 @@ color = Color(0.95, 0.8803333, 0.532, 1)
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 position = Vector2(0, -9)
 sprite_frames = SubResource("SpriteFrames_w2ss5")
-animation = &"sleep"
-frame = 1
-frame_progress = 0.7116551
+animation = &"walk"
 
 [connection signal="navigation_finished" from="NavigationAgent2D" to="." method="_on_navigation_agent_2d_navigation_finished"]

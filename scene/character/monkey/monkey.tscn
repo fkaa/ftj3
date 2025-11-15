@@ -1,7 +1,7 @@
 [gd_scene load_steps=19 format=3 uid="uid://bgehrir0shjkw"]
 
 [ext_resource type="Script" uid="uid://i2elwhg5qdyj" path="res://scene/character/monkey/monkey.gd" id="1_5jcpy"]
-[ext_resource type="Texture2D" uid="uid://dv63dkhl61p4h" path="res://sprite_sheet.png" id="2_d2rcb"]
+[ext_resource type="Texture2D" uid="uid://dv63dkhl61p4h" path="res://asset/spritesheets/sprite_sheet.png" id="2_d2rcb"]
 [ext_resource type="PackedScene" uid="uid://51gc0k1kynhr" path="res://scene/fx/cage/cage.tscn" id="3_vi7kd"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_s537f"]
@@ -159,10 +159,10 @@ libraries = {
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 position = Vector2(-3, -18)
 sprite_frames = SubResource("SpriteFrames_e0ri7")
-animation = &"jump"
+animation = &"run"
 autoplay = "new_animation"
-frame = 1
-frame_progress = 0.7345635
+frame = 2
+frame_progress = 0.39455724
 speed_scale = 1.5
 
 [connection signal="body_entered" from="BananaArea" to="." method="_on_banana_area_body_entered"]

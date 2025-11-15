@@ -1,0 +1,15 @@
+[gd_resource type="AudioStreamRandomizer" load_steps=6 format=3 uid="uid://s0lyjp50nmx1"]
+
+[ext_resource type="AudioStream" uid="uid://3bxef0wy7h5m" path="res://asset/sfx/zoo_keeper/footstep-001.ogg" id="1_elgiu"]
+[ext_resource type="AudioStream" uid="uid://b6rjqaixcmot2" path="res://asset/sfx/zoo_keeper/footstep-002.ogg" id="2_jq71q"]
+[ext_resource type="AudioStream" uid="uid://cm3y2pe6esvpc" path="res://asset/sfx/zoo_keeper/footstep-003.ogg" id="3_jk636"]
+[ext_resource type="AudioStream" uid="uid://d3oosq87f1aiy" path="res://asset/sfx/zoo_keeper/footstep-004.ogg" id="4_ytjme"]
+[ext_resource type="AudioStream" uid="uid://eyoan5jjbjag" path="res://asset/sfx/zoo_keeper/footstep-005.ogg" id="5_vyajh"]
+
+[resource]
+streams_count = 5
+stream_0/stream = ExtResource("1_elgiu")
+stream_1/stream = ExtResource("2_jq71q")
+stream_2/stream = ExtResource("3_jk636")
+stream_3/stream = ExtResource("4_ytjme")
+stream_4/stream = ExtResource("5_vyajh")

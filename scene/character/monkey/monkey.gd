@@ -4,6 +4,7 @@ class_name Monkey
 const SPEED = 250.0
 const JUMP_VELOCITY = -300.0
 const MONKEY_HOHO_1 = preload("uid://brm58to3dtst7")
+const MONKEY_FOOTSTEPS = preload("uid://crx6mobaoofwd")
 
 @export var max_speed: float = 250.0
 @export var run_speed: float = 1500.0
@@ -14,6 +15,9 @@ const MONKEY_HOHO_1 = preload("uid://brm58to3dtst7")
 @onready var animation_player: AnimationPlayer = $AnimationPlayer
 
 var audio_manager: AudioManager
+
+var run_timer = 0
+var has_landed = true
 
 func _ready() -> void:
 	$AnimatedSprite2D.play("run")
@@ -34,10 +38,10 @@ func _process(delta: float) -> void:
 			banana.position = position
 			banana.is_fresh = false
 			banana.linear_velocity = Vector2(last_dir * 100.0, -100.0)
-			get_parent().add_child(banana)
+			get_parent().add_child(banana) 
 			bananas -= 1
 			audio_manager.play_audio(MONKEY_HOHO_1, 0.26)
-			pass
+			audio_manager.play_audio(load("res://asset/sfx/monkey/throw/throw.ogg"), -3.0, false, randf_range(0.5, 0.7))
 
 func _physics_process(delta: float) -> void:
 	# Add the gravity.
@@ -49,6 +53,8 @@ func _physics_process(delta: float) -> void:
 	if jump:
 		velocity.y = JUMP_VELOCITY
 		audio_manager.play_audio(MONKEY_HOHO_1, 0.26)
+		audio_manager.play_audio_2d(MONKEY_FOOTSTEPS, self.position)
+		audio_manager.play_audio_2d(load("res://asset/sfx/monkey/jump/jump-001.ogg"), self.position)
 		# audio_manager.play_audio(MONKEY_HOHO_1)
 
 	# Get the input direction and handle the movement/deceleration.
@@ -63,10 +69,8 @@ func _physics_process(delta: float) -> void:
 			break_free.emit()
 			animation_player.stop()
 	
-	
 	if direction:
 		velocity.x = direction * run_speed * 0.3
-		print(direction)
 		if is_on_floor():
 			$AnimatedSprite2D.play("run")
 		if direction == 1:
@@ -78,9 +82,17 @@ func _physics_process(delta: float) -> void:
 	
 	if !is_on_floor():
 		$AnimatedSprite2D.play("jump")
+		has_landed = false
 	else:
+		if has_landed == false:
+			has_landed = true
+			audio_manager.play_audio_2d(MONKEY_FOOTSTEPS, self.position)
 		if abs(velocity.x) > 0:
 			$AnimatedSprite2D.play("run")
+			run_timer += 4 * delta
+			if run_timer >= 1:
+				run_timer = 0
+				audio_manager.play_audio_2d(MONKEY_FOOTSTEPS, self.position)
 		else:
 			$AnimatedSprite2D.play("idle")
 

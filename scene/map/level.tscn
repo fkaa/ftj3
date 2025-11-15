@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=4 uid="uid://c6s5y3nxa0xvb"]
+[gd_scene load_steps=14 format=4 uid="uid://c6s5y3nxa0xvb"]
 
 [ext_resource type="Script" uid="uid://bejxu7a4bxp86" path="res://scene/map/level.gd" id="1_2ddnm"]
 [ext_resource type="TileSet" uid="uid://dp0w5rdqjrw6" path="res://asset/tileset.tres" id="1_o3xit"]
@@ -7,6 +7,7 @@
 [ext_resource type="PackedScene" uid="uid://btu6dd2a5m8jk" path="res://scene/character/zookeeper/zookeeper.tscn" id="4_kpw1k"]
 [ext_resource type="PackedScene" uid="uid://dliekub8m1fdo" path="res://scene/stuff/banana/banana.tscn" id="5_x4you"]
 [ext_resource type="Texture2D" uid="uid://dmer5wb5rb4ig" path="res://asset/fx/instructions.png" id="6_iw0oh"]
+[ext_resource type="AudioStream" uid="uid://cdqycmlt06x4b" path="res://asset/music/monke_trouble.wav" id="8_5ivi6"]
 
 [sub_resource type="NavigationPolygon" id="NavigationPolygon_cx6pn"]
 vertices = PackedVector2Array(262, 34, 299.42188, 34, 299.35156, 62, -262, 62, -262, -158, 262, -158)
@@ -122,3 +123,8 @@ position = Vector2(-143, -80)
 rotation = 0.014901936
 scale = Vector2(0.99999994, 0.99999994)
 texture = SubResource("AtlasTexture_5ivi6")
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("8_5ivi6")
+volume_db = -6.0
+autoplay = true
