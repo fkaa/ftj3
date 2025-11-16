@@ -2,9 +2,10 @@ extends CharacterBody2D
 class_name Monkey
 
 const SPEED = 250.0
-const JUMP_VELOCITY = -300.0
+const JUMP_VELOCITY = -350.0
 const MONKEY_HOHO_1 = preload("uid://brm58to3dtst7")
 const MONKEY_FOOTSTEPS = preload("uid://crx6mobaoofwd")
+const MONKEYOW = preload("uid://cxcqr5qo8pcow")
 
 @export var max_speed: float = 250.0
 @export var run_speed: float = 1500.0
@@ -13,12 +14,15 @@ const MONKEY_FOOTSTEPS = preload("uid://crx6mobaoofwd")
 @onready var visuals: Node2D = $visuals
 @onready var cage: Node2D = $visuals/Cage
 @onready var animation_player: AnimationPlayer = $AnimationPlayer
+@onready var animated_sprite_2d: AnimatedSprite2D = $AnimatedSprite2D
 
 var audio_manager: AudioManager
 
 var run_timer = 0
 var has_landed = true
 var last_on_wall: bool = false
+var walling: bool = false
+var iframe_timer: float = 0
 
 func _ready() -> void:
 	$AnimatedSprite2D.play("run")
@@ -34,34 +38,54 @@ const JUMP_COOLDOWN = 0.3
 signal break_free
 const BANANA = preload("uid://dliekub8m1fdo")
 
+func throw_banana(dir: Vector2 = Vector2.ZERO, audio: bool = true):
+	var banana: Banana = BANANA.instantiate()
+	banana.position = position
+	banana.is_fresh = false
+	if dir == Vector2.ZERO:
+		banana.linear_velocity = Vector2(last_dir * 100.0, -100.0)
+	else:
+		banana.linear_velocity = dir
+	get_parent().add_child(banana) 
+	bananas -= 1
+	if audio:
+		audio_manager.play_audio(MONKEY_HOHO_1, 0.26)
+		audio_manager.play_audio(load("res://asset/sfx/monkey/throw/throw.ogg"), -3.0, false, randf_range(0.5, 0.7))
+
 func _process(delta: float) -> void:
 	if Input.is_action_just_pressed("banana_drop"):
 		if true: #bananas > 0:
-			var banana: Banana = BANANA.instantiate()
-			banana.position = position
-			banana.is_fresh = false
-			banana.linear_velocity = Vector2(last_dir * 100.0, -100.0)
-			get_parent().add_child(banana) 
-			bananas -= 1
-			audio_manager.play_audio(MONKEY_HOHO_1, 0.26)
-			audio_manager.play_audio(load("res://asset/sfx/monkey/throw/throw.ogg"), -3.0, false, randf_range(0.5, 0.7))
+			throw_banana()
 
 func _physics_process(delta: float) -> void:
 	var on_wall = is_on_wall_only()
 	if on_wall and not last_on_wall:
 		jump_cooldown = JUMP_COOLDOWN
+		walling = true
 	# Add the gravity.
 	if not is_on_floor():
 		velocity += get_gravity() * delta
 
-	# Handle jump.
+	if is_on_floor():
+		walling = false
+	
+	iframe_timer -= delta
+	
+	if iframe_timer <= 0:
+		animated_sprite_2d.modulate = Color.WHITE
+	else:
+		animated_sprite_2d.modulate = Color.from_rgba8(255, 255, 255, (int(iframe_timer * 8) % 2) * 255)
+
+	
 	var jump = Input.is_action_just_pressed("ui_accept")
-	if jump and (is_on_floor() or is_on_wall()):
+	if jump and (is_on_floor() or walling):
 			
-		if is_on_wall_only():
+		if walling:
+			walling = false
 			jump_cooldown = 0
 			velocity.x = last_dir * JUMP_VELOCITY
 			last_dir = -last_dir
+			$AnimatedSprite2D.flip_h = last_dir == 1
 			velocity.y = JUMP_VELOCITY
 		else:
 			velocity.y = JUMP_VELOCITY
@@ -88,19 +112,17 @@ func _physics_process(delta: float) -> void:
 			velocity.x += direction * run_speed * delta
 		if is_on_floor():
 			$AnimatedSprite2D.play("run")
-		if direction == 1:
-			$AnimatedSprite2D.flip_h = true
-		else:
-			$AnimatedSprite2D.flip_h = false
+		$AnimatedSprite2D.flip_h = direction == 1
+
 	elif is_on_floor():
 		velocity.x = move_toward(velocity.x, 0, delta * run_slowdown)
 
 		
 	
-	if !is_on_floor() and !on_wall:
+	if !is_on_floor() and !walling:
 		$AnimatedSprite2D.play("jump")
 		has_landed = false
-	elif !is_on_floor() and on_wall:
+	elif !is_on_floor() and walling:
 		$AnimatedSprite2D.play("wall_jump")
 	else:
 		if has_landed == false:
@@ -123,9 +145,24 @@ func _physics_process(delta: float) -> void:
 	last_on_wall = on_wall
 	jump_cooldown -= delta
 	move_and_slide()
+const SLAP_2 = preload("uid://byltbcdi08upb")
 
+func get_whipped():
+	velocity.y -= 1200
+	for i in range(0,10):
+		throw_banana(Vector2((i-5.0)/5.0*30, -150), false)
+	audio_manager.play_audio_2d(SLAP_2, self.position)
+	audio_manager.play_audio_2d(MONKEYOW, self.position)
+	iframe_timer = 3.0
 
 func _on_banana_area_body_entered(body: Node2D) -> void:
-	if body is Banana and body.is_fresh:
+	if body is Zookeeper and iframe_timer <= 0:
+		get_whipped()
+	pass
+
+
+func _on_banana_area_area_entered(area: Area2D) -> void:
+	if area is BananaPickup:# and body.is_fresh:
 		bananas += 1
-		body.queue_free()
+		area.queue_free()
+		throw_banana()
