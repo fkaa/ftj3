@@ -1,4 +1,4 @@
-[gd_scene load_steps=25 format=3 uid="uid://btu6dd2a5m8jk"]
+[gd_scene load_steps=24 format=3 uid="uid://btu6dd2a5m8jk"]
 
 [ext_resource type="Texture2D" uid="uid://benyh82ycecqw" path="res://asset/fx/z.png" id="1_50fiq"]
 [ext_resource type="Script" uid="uid://ru2xwxen638b" path="res://scene/character/zookeeper/zookeeper.gd" id="1_tutih"]
@@ -148,10 +148,8 @@ animations = [{
 "speed": 5.0
 }]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_54yyc"]
-size = Vector2(326, 58)
-
 [node name="Zookeeper" type="CharacterBody2D"]
+position = Vector2(1, 0)
 collision_layer = 4
 collision_mask = 4
 script = ExtResource("1_tutih")
@@ -211,13 +209,4 @@ animation = &"surprised"
 frame = 5
 frame_progress = 1.0
 
-[node name="WakeArea" type="Area2D" parent="."]
-collision_layer = 7
-collision_mask = 7
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="WakeArea"]
-shape = SubResource("RectangleShape2D_54yyc")
-
 [connection signal="navigation_finished" from="NavigationAgent2D" to="." method="_on_navigation_agent_2d_navigation_finished"]
-[connection signal="body_entered" from="WakeArea" to="." method="_on_wake_area_body_entered"]
-[connection signal="body_exited" from="WakeArea" to="." method="_on_wake_area_body_exited"]

@@ -22,15 +22,15 @@ var section_map: Dictionary[String, Array] = {
 var sections: Array[Node2D] = []
 
 func _ready() -> void:
-	var start = section_map["start"][0].instantiate()
-	var first = section_map["open"][0].instantiate()
-	sections_nodes.add_child(start)
-	sections_nodes.add_child(first)
-	first.position.y -= start.bounds.y
+	#var start = section_map["start"][0].instantiate()
+	#var first = section_map["open"][0].instantiate()
+	#sections_nodes.add_child(start)
+	#sections_nodes.add_child(first)
+	#first.position.y -= start.bounds.y
 
 	navigation_region_2d.bake_navigation_polygon(true)
-	sections.push_back(start)
-	sections.push_back(first)
+	#sections.push_back(start)
+	#sections.push_back(first)
 	
 	monkey.break_free.connect(_on_monkey_break_free)
 	for c in get_children():
@@ -41,17 +41,6 @@ func _ready() -> void:
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
-	var last_section = sections.back()
-	if monkey.position.y < (last_section.position.y + 200):
-		add_new_section(last_section)
-	
-	const camera_margin = 100
-	if monkey.position.y - camera_margin > camera_2d.position.y:
-		camera_2d.position.y = monkey.position.y- camera_margin
-	if monkey.position.y + camera_margin < camera_2d.position.y:
-		camera_2d.position.y = monkey.position.y+ camera_margin 
-	
-	
 	pass
 
 func add_new_section(last_section: Node2D):
