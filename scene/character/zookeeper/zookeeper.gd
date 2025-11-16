@@ -39,9 +39,8 @@ func startle():
 func _physics_process(delta: float) -> void:
 	if target:
 		navigation_agent_2d.target_position = target.global_position
-		if navigation_agent_2d.is_navigation_finished():
-			return
-		navigation_agent_2d.velocity = velocity
+		if not navigation_agent_2d.is_navigation_finished():
+			navigation_agent_2d.velocity = velocity
 	if not is_on_floor():
 		velocity += get_gravity() * delta
 	
@@ -50,7 +49,7 @@ func _physics_process(delta: float) -> void:
 		sleeping = true
 		animated_sprite_2d.play("sleep")
 		zzz_particles.emitting = true
-		monkey_timer = 3.0
+		
 		navigation_agent_2d.target_position = Vector2.ZERO
 
 	monkey_timer -= delta
@@ -70,7 +69,8 @@ func _physics_process(delta: float) -> void:
 			animated_sprite_2d.flip_h = true
 		else:
 			animated_sprite_2d.flip_h = false
-	
+	else:
+		velocity.x = 0
 	# Add the gravity.
 
 	# Handle jump.
