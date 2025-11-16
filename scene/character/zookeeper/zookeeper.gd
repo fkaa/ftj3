@@ -37,9 +37,11 @@ func sex():
 	animated_sprite_2d.play("sleep")
 
 func unsex():
-	modulate = Color.CORAL
+	$AnimatedSprite2D.modulate = Color.CORAL
 	sleeping = false
 	# animated_sprite_2d.play("walk")
+	audio_manager.play_audio(load("res://asset/sfx/zoo_keeper/awake/awoken_keeper.tres"), 0.0)
+	$CPUParticles2D.emitting = true
 
 func startle():
 	velocity.y = JUMP_VELOCITY
@@ -48,7 +50,7 @@ func startle():
 	sleeping = false
 	animated_sprite_2d.play("walk")
 	print("Awake")
-	audio_manager.play_audio(load("res://asset/sfx/zoo_keeper/awake/awoken_keeper.tres"), 0.0)
+	#audio_manager.play_audio(load("res://asset/sfx/zoo_keeper/awake/awoken_keeper.tres"), 0.0)
 	
 	
 var direction: float = -1
@@ -73,6 +75,7 @@ func _physics_process(delta: float) -> void:
 		velocity.x = 0
 	
 	move_and_slide()
+		
 
 
 func _on_navigation_agent_2d_navigation_finished() -> void:
@@ -96,3 +99,9 @@ func _on_wake_area_body_exited(body: Node2D) -> void:
 		#monkey_timer = 3.0
 		#lost_target = true
 		##navigation_agent_2d.target_position = Vector2.ZERO
+
+
+func _on_animated_sprite_2d_frame_changed() -> void:
+	pass # Replace with function body.
+	if sleeping:
+		audio_manager.play_audio(load("res://asset/sfx/zoo_keeper/awake/awoken_keeper.tres"), 0.0)
