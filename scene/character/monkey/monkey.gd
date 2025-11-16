@@ -1,14 +1,14 @@
 extends CharacterBody2D
 class_name Monkey
 
-const JUMP_VELOCITY = -350.0
+const JUMP_VELOCITY = -400.0
 const WALL_JUMP_PUSH = 500
 const MONKEY_HOHO_1 = preload("uid://brm58to3dtst7")
 const MONKEY_FOOTSTEPS = preload("uid://crx6mobaoofwd")
 const MONKEYOW = preload("uid://cxcqr5qo8pcow")
 
-const FALL_SPEED = 512
-const GRAVITY = 512
+const FALL_SPEED = 450
+const GRAVITY = 912
 const SPEED = 256
 const ACCEELLERATION = 2048
 
@@ -40,7 +40,7 @@ var bananas: int = 0
 var jump_cooldown = 0.0
 var coyote = 0.0
 const JUMP_COOLDOWN = 0.3
-
+var let_go = false
 signal break_free
 const BANANA = preload("uid://dliekub8m1fdo")
 
@@ -86,9 +86,16 @@ func _physics_process(delta: float) -> void:
 	if on_wall and not last_on_wall:
 		jump_cooldown = JUMP_COOLDOWN
 		walling = true
-	# Add the gravity.
+		
+	if Input.is_action_just_released("ui_accept"):
+		let_go = true
 	if not is_on_floor():
-		velocity.y = move_toward(velocity.y, FALL_SPEED, GRAVITY * delta)
+		var speed = FALL_SPEED
+		var grav = GRAVITY
+		if let_go:
+			speed = FALL_SPEED
+			grav = GRAVITY * 2
+		velocity.y = move_toward(velocity.y, speed, grav * delta)
 
 	if is_on_floor() or is_on_wall():
 		coyote = 0.3
@@ -106,6 +113,7 @@ func _physics_process(delta: float) -> void:
 	
 	var jump = Input.is_action_just_pressed("ui_accept")
 	if jump:
+		let_go = false
 		jump()
 
 	var direction := Input.get_axis("ui_left", "ui_right")
@@ -123,9 +131,7 @@ func _physics_process(delta: float) -> void:
 			$AnimatedSprite2D.play("run")
 		$AnimatedSprite2D.flip_h = direction == 1
 	else:
-		print(velocity.x)
 		velocity.x = move_toward(velocity.x, 0, ACCEELLERATION * delta)
-		print(velocity.x)
 		
 	if !is_on_floor() and !is_on_wall():
 		$AnimatedSprite2D.play("jump")
