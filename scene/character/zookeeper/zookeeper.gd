@@ -34,6 +34,8 @@ func startle():
 	surprise_particles.emitting = true
 	sleeping = false
 	animated_sprite_2d.play("walk")
+	print("Awake")
+	audio_manager.play_audio(load("res://asset/sfx/zoo_keeper/awake/awoken_keeper.tres"), 0.0)
 	
 	
 func _physics_process(delta: float) -> void:

@@ -1,0 +1,33 @@
+[gd_resource type="AudioStreamRandomizer" load_steps=15 format=3 uid="uid://csubdkwhbb4b7"]
+
+[ext_resource type="AudioStream" uid="uid://brk0uw6pevij6" path="res://asset/sfx/zoo_keeper/awake/awoken-001.ogg" id="1_y8dor"]
+[ext_resource type="AudioStream" uid="uid://50n36ht3sxsf" path="res://asset/sfx/zoo_keeper/awake/awoken-002.ogg" id="2_cqc3i"]
+[ext_resource type="AudioStream" uid="uid://bnmvalo36hiex" path="res://asset/sfx/zoo_keeper/awake/awoken-011.ogg" id="3_nbwsv"]
+[ext_resource type="AudioStream" uid="uid://cwehbhmb064vq" path="res://asset/sfx/zoo_keeper/awake/awoken-012.ogg" id="4_oqbs6"]
+[ext_resource type="AudioStream" uid="uid://bx4jvdlfwbiye" path="res://asset/sfx/zoo_keeper/awake/awoken-013.ogg" id="5_nfh7l"]
+[ext_resource type="AudioStream" uid="uid://clwht0wwus2j7" path="res://asset/sfx/zoo_keeper/awake/awoken-014.ogg" id="6_85lmh"]
+[ext_resource type="AudioStream" uid="uid://cxx52xirhkw66" path="res://asset/sfx/zoo_keeper/awake/awoken-003.ogg" id="7_qihu0"]
+[ext_resource type="AudioStream" uid="uid://dmj1uglxts1hq" path="res://asset/sfx/zoo_keeper/awake/awoken-004.ogg" id="8_rl7nu"]
+[ext_resource type="AudioStream" uid="uid://jtjtgtmmd36p" path="res://asset/sfx/zoo_keeper/awake/awoken-005.ogg" id="9_lerev"]
+[ext_resource type="AudioStream" uid="uid://db7iqkfaspa86" path="res://asset/sfx/zoo_keeper/awake/awoken-006.ogg" id="10_hsvyp"]
+[ext_resource type="AudioStream" uid="uid://dmpuqjj2qx86n" path="res://asset/sfx/zoo_keeper/awake/awoken-007.ogg" id="11_uupda"]
+[ext_resource type="AudioStream" uid="uid://dceeryj3dmmlm" path="res://asset/sfx/zoo_keeper/awake/awoken-008.ogg" id="12_evv0q"]
+[ext_resource type="AudioStream" uid="uid://s42kjbwx7cak" path="res://asset/sfx/zoo_keeper/awake/awoken-009.ogg" id="13_6k1ih"]
+[ext_resource type="AudioStream" uid="uid://cfr2bh63ytf50" path="res://asset/sfx/zoo_keeper/awake/awoken-010.ogg" id="14_p1gcp"]
+
+[resource]
+streams_count = 14
+stream_0/stream = ExtResource("1_y8dor")
+stream_1/stream = ExtResource("2_cqc3i")
+stream_2/stream = ExtResource("7_qihu0")
+stream_3/stream = ExtResource("8_rl7nu")
+stream_4/stream = ExtResource("9_lerev")
+stream_5/stream = ExtResource("10_hsvyp")
+stream_6/stream = ExtResource("11_uupda")
+stream_7/stream = ExtResource("12_evv0q")
+stream_8/stream = ExtResource("13_6k1ih")
+stream_9/stream = ExtResource("14_p1gcp")
+stream_10/stream = ExtResource("3_nbwsv")
+stream_11/stream = ExtResource("4_oqbs6")
+stream_12/stream = ExtResource("5_nfh7l")
+stream_13/stream = ExtResource("6_85lmh")
