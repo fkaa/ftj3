@@ -1,11 +1,16 @@
 extends CharacterBody2D
 class_name Monkey
 
-const SPEED = 250.0
 const JUMP_VELOCITY = -350.0
+const WALL_JUMP_PUSH = 500
 const MONKEY_HOHO_1 = preload("uid://brm58to3dtst7")
 const MONKEY_FOOTSTEPS = preload("uid://crx6mobaoofwd")
 const MONKEYOW = preload("uid://cxcqr5qo8pcow")
+
+const FALL_SPEED = 512
+const GRAVITY = 512
+const SPEED = 256
+const ACCEELLERATION = 2048
 
 @export var max_speed: float = 250.0
 @export var run_speed: float = 1500.0
@@ -33,6 +38,7 @@ func _ready() -> void:
 var last_dir: float = 0
 var bananas: int = 0
 var jump_cooldown = 0.0
+var coyote = 0.0
 const JUMP_COOLDOWN = 0.3
 
 signal break_free
@@ -57,6 +63,24 @@ func _process(delta: float) -> void:
 		if true: #bananas > 0:
 			throw_banana()
 
+func jump():
+	if is_on_wall() and abs(get_wall_normal().x) > 0.9:
+		var normal = get_wall_normal()
+		velocity.y = JUMP_VELOCITY
+		velocity.x = normal.x * WALL_JUMP_PUSH
+		jump_sound()
+	else:
+		if coyote > 0:
+			jump_sound()
+			velocity.y = JUMP_VELOCITY
+			coyote = -1
+
+func jump_sound():
+	audio_manager.play_audio(MONKEY_HOHO_1, 0.26)
+	audio_manager.play_audio_2d(MONKEY_FOOTSTEPS, self.position)
+	audio_manager.play_audio_2d(load("res://asset/sfx/monkey/jump/jump-001.ogg"), self.position)
+
+
 func _physics_process(delta: float) -> void:
 	var on_wall = is_on_wall_only()
 	if on_wall and not last_on_wall:
@@ -64,11 +88,14 @@ func _physics_process(delta: float) -> void:
 		walling = true
 	# Add the gravity.
 	if not is_on_floor():
-		velocity += get_gravity() * delta
+		velocity.y = move_toward(velocity.y, FALL_SPEED, GRAVITY * delta)
 
 	if is_on_floor():
+		coyote = 0.1
 		walling = false
-	
+	else:
+		coyote -= delta
+
 	iframe_timer -= delta
 	
 	if iframe_timer <= 0:
@@ -78,22 +105,23 @@ func _physics_process(delta: float) -> void:
 
 	
 	var jump = Input.is_action_just_pressed("ui_accept")
-	if jump and (is_on_floor() or walling):
-			
-		if walling:
-			walling = false
-			jump_cooldown = 0
-			velocity.x = last_dir * JUMP_VELOCITY
-			last_dir = -last_dir
-			$AnimatedSprite2D.flip_h = last_dir == 1
-			velocity.y = JUMP_VELOCITY
-		else:
-			velocity.y = JUMP_VELOCITY
+	if jump:
+		jump()
 
-		audio_manager.play_audio(MONKEY_HOHO_1, 0.26)
-		audio_manager.play_audio_2d(MONKEY_FOOTSTEPS, self.position)
-		audio_manager.play_audio_2d(load("res://asset/sfx/monkey/jump/jump-001.ogg"), self.position)
-		# audio_manager.play_audio(MONKEY_HOHO_1)
+	
+	#if jump and (is_on_floor() or walling):
+			#
+		#if walling:
+			#walling = false
+			#jump_cooldown = 0
+			#velocity.x = last_dir * JUMP_VELOCITY
+			#last_dir = -last_dir
+			#$AnimatedSprite2D.flip_h = last_dir == 1
+			#velocity.y = JUMP_VELOCITY
+		#else:
+			#velocity.y = JUMP_VELOCITY
+
+				# audio_manager.play_audio(MONKEY_HOHO_1)
 
 	# Get the input direction and handle the movement/deceleration.
 	# As good practice, you should replace UI actions with custom gameplay actions.
@@ -107,18 +135,18 @@ func _physics_process(delta: float) -> void:
 			animation_player.stop()
 	
 	if direction:
-		if jump_cooldown <= 0:
-			last_dir = sign(direction)
-			velocity.x += direction * run_speed * delta
+		velocity.x = move_toward(velocity.x, direction * SPEED, ACCEELLERATION * delta)
+		#if jump_cooldown <= 0:
+		#	last_dir = sign(direction)
+		#	velocity.x += direction * run_speed * delta
 		if is_on_floor():
 			$AnimatedSprite2D.play("run")
 		$AnimatedSprite2D.flip_h = direction == 1
-
-	elif is_on_floor():
-		velocity.x = move_toward(velocity.x, 0, delta * run_slowdown)
-
+	else:
+		print(velocity.x)
+		velocity.x = move_toward(velocity.x, 0, ACCEELLERATION * delta)
+		print(velocity.x)
 		
-	
 	if !is_on_floor() and !walling:
 		$AnimatedSprite2D.play("jump")
 		has_landed = false
@@ -137,14 +165,12 @@ func _physics_process(delta: float) -> void:
 		else:
 			$AnimatedSprite2D.play("idle")
 
-	if velocity.x < -max_speed:
-		velocity.x = -max_speed
-	elif velocity.x > max_speed:
-		velocity.x = max_speed
+
 
 	last_on_wall = on_wall
 	jump_cooldown -= delta
 	move_and_slide()
+
 const SLAP_2 = preload("uid://byltbcdi08upb")
 
 func get_whipped():
