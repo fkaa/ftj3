@@ -51,7 +51,7 @@ func finish_game():
 	monkey.queue_free()
 	pass
 
-var timeleft = 200.0
+var timeleft = 90.0
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
 	if started:
@@ -73,7 +73,6 @@ func add_new_section(last_section: Node2D):
 	scene.position = last_section.position
 	scene.position.y = last_section.position.y - last_section.bounds.y
 	
-
 	sections_nodes.add_child(scene)
 	navigation_region_2d.position.y = monkey.position.x
 	navigation_region_2d.bake_navigation_polygon(true)

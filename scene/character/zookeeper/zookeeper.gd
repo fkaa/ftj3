@@ -65,7 +65,7 @@ func _physics_process(delta: float) -> void:
 		run_timer += 1.6 * delta
 		if run_timer >= 1:
 			run_timer = 0
-			audio_manager.play_audio_2d(load("res://asset/sfx/zoo_keeper/footsteps.tres"), global_position, -9.0)
+			audio_manager.play_audio_2d(load("res://asset/sfx/zoo_keeper/footsteps.tres"), global_position, -20.0)
 		
 		if direction > 0:
 			animated_sprite_2d.flip_h = true
