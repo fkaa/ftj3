@@ -1,4 +1,4 @@
-[gd_scene load_steps=21 format=4 uid="uid://c6s5y3nxa0xvb"]
+[gd_scene load_steps=22 format=4 uid="uid://c6s5y3nxa0xvb"]
 
 [ext_resource type="Script" uid="uid://bejxu7a4bxp86" path="res://scene/map/level.gd" id="1_2ddnm"]
 [ext_resource type="TileSet" uid="uid://dp0w5rdqjrw6" path="res://asset/tileset.tres" id="2_5ivi6"]
@@ -37,6 +37,9 @@ region = Rect2(49.7313, 80.66555, 19.54367, 16.193329)
 
 [sub_resource type="LabelSettings" id="LabelSettings_5ivi6"]
 font_size = 56
+
+[sub_resource type="LabelSettings" id="LabelSettings_ybwxx"]
+font_size = 31
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_gwv6i"]
 atlas = ExtResource("7_5ivi6")
@@ -152,28 +155,8 @@ offset_bottom = 16.954897
 grow_horizontal = 2
 grow_vertical = 2
 rotation = -0.19030999
-text = "speed up science
-by spreading disease"
-label_settings = SubResource("LabelSettings_cx6pn")
-horizontal_alignment = 1
-vertical_alignment = 1
-
-[node name="wq2" type="Label" parent="Instructions/MoveLabel2"]
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = 63.21315
-offset_top = 59.17974
-offset_right = 308.2132
-offset_bottom = 108.17974
-grow_horizontal = 2
-grow_vertical = 2
-rotation = 0.0087182075
-text = "speed up science
-by spreading disease"
+text = "collect research samples
+to get science points"
 label_settings = SubResource("LabelSettings_cx6pn")
 horizontal_alignment = 1
 vertical_alignment = 1
@@ -240,21 +223,42 @@ offset_bottom = 296.0
 
 [node name="Label" type="Label" parent="Control"]
 layout_mode = 0
-offset_left = 145.0
-offset_top = 264.0
-offset_right = 255.0
-offset_bottom = 287.0
+offset_left = 67.0
+offset_top = 269.0
+offset_right = 177.0
+offset_bottom = 292.0
 text = "science points"
 
 [node name="ScienceLabel" type="Label" parent="Control"]
 unique_name_in_owner = true
 layout_mode = 0
-offset_left = 149.0
-offset_top = 199.0
-offset_right = 259.0
-offset_bottom = 276.0
+offset_left = 71.0
+offset_top = 204.0
+offset_right = 181.0
+offset_bottom = 281.0
 text = "0"
 label_settings = SubResource("LabelSettings_5ivi6")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Label2" type="Label" parent="Control"]
+layout_mode = 0
+offset_left = 183.0
+offset_top = 270.0
+offset_right = 293.0
+offset_bottom = 293.0
+text = "time left"
+horizontal_alignment = 1
+
+[node name="TimeLabel" type="Label" parent="Control"]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = 187.0
+offset_top = 205.0
+offset_right = 297.0
+offset_bottom = 282.0
+text = "1m 59s"
+label_settings = SubResource("LabelSettings_ybwxx")
 horizontal_alignment = 1
 vertical_alignment = 1
 
@@ -269,10 +273,10 @@ texture = SubResource("AtlasTexture_gwv6i")
 [node name="zooMan" type="TextureRect" parent="Control"]
 unique_name_in_owner = true
 layout_mode = 0
-offset_left = -36.0
-offset_top = 212.0
-offset_right = -4.0
-offset_bottom = 291.0
+offset_left = -28.0
+offset_top = 210.0
+offset_right = 4.0
+offset_bottom = 289.0
 texture = SubResource("AtlasTexture_ybwxx")
 
 [node name="HivLabel" type="Label" parent="Control"]

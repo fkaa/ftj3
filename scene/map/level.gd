@@ -7,7 +7,7 @@ extends Node2D
 @onready var sections_nodes: Node2D = $SectionsNodes
 
 var zookeepers: Array[Zookeeper] = []
-
+var started = false
 var section_map: Dictionary[String, Array] = {
 	"start": [preload("res://scene/map/sections/start.tscn")],
 	"open": [
@@ -37,11 +37,32 @@ func _ready() -> void:
 		if c is Zookeeper:
 			zookeepers.push_back(c)
 	pass # Replace with function body.
+const ENDSCREEN = preload("uid://dh1u3e7nron4v")
 
+func finish_game():
+	started = false
+	timeleft = 0
 
+	var s = ENDSCREEN.instantiate()
+	s.score = monkey.science
+	add_child(s)
+	for z in zookeepers:
+		z.queue_free()
+	monkey.queue_free()
+	pass
+
+var timeleft = 200.0
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
-	%ScienceLabel.text = "%d" % monkey.science
+	if started:
+		timeleft -= delta
+	if timeleft <= 0 and started:
+		finish_game()
+	if started:
+		%ScienceLabel.text = "%d" % monkey.science
+		var minutes = floor(timeleft / 60)
+		var seconds = floor(int(timeleft) % 60)
+		%TimeLabel.text = "%dm %ds" % [minutes, seconds]
 	pass
 
 func add_new_section(last_section: Node2D):
@@ -60,6 +81,7 @@ func add_new_section(last_section: Node2D):
 	sections.push_back(scene)
 	
 func _on_monkey_break_free() -> void:
+	started = true
 	instructions.visible = false
 	for z in zookeepers:
 		z.startle()
