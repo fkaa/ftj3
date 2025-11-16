@@ -41,6 +41,7 @@ func _ready() -> void:
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
+	%ScienceLabel.text = "%d" % monkey.science
 	pass
 
 func add_new_section(last_section: Node2D):

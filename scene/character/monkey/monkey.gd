@@ -44,6 +44,7 @@ var sexing: bool = false
 var let_go = false
 signal break_free
 const BANANA = preload("uid://dliekub8m1fdo")
+var science = 0
 
 func throw_banana(dir: Vector2 = Vector2.ZERO, audio: bool = true):
 	var banana: Banana = BANANA.instantiate()
@@ -182,7 +183,14 @@ func get_whipped(zookeeper: Zookeeper):
 	sexing = false
 
 func _on_banana_area_body_entered(body: Node2D) -> void:
-	
+	if body is Banana and iframe_timer <= 0:
+		science += 1
+		body.queue_free()
+		print(banana_pitch)
+		if banana_pitch > 99 :
+			banana_pitch = 0
+		audio_manager.play_audio(load("res://asset/sfx/pickup.wav"), -6.0, false, 0.5 + banana_pitch / 100.0)
+		banana_pitch += 1
 	pass
 
 var banana_pitch = 0
