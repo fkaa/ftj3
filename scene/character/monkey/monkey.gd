@@ -189,7 +189,7 @@ func _on_banana_area_body_entered(body: Node2D) -> void:
 		print(banana_pitch)
 		if banana_pitch > 99 :
 			banana_pitch = 0
-		audio_manager.play_audio(load("res://asset/sfx/pickup.wav"), -6.0, false, 0.5 + banana_pitch / 100.0)
+		audio_manager.play_audio(load("res://asset/sfx/pickup.wav"), -18.0, false, 0.5 + banana_pitch / 100.0)
 		banana_pitch += 1
 	pass
 
