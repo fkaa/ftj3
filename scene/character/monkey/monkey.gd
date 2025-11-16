@@ -64,7 +64,7 @@ func _process(delta: float) -> void:
 			throw_banana()
 
 func jump():
-	if is_on_wall() and abs(get_wall_normal().x) > 0.9:
+	if is_on_wall_only() and abs(get_wall_normal().x) > 0.9:
 		var normal = get_wall_normal()
 		velocity.y = JUMP_VELOCITY
 		velocity.x = normal.x * WALL_JUMP_PUSH
@@ -90,8 +90,8 @@ func _physics_process(delta: float) -> void:
 	if not is_on_floor():
 		velocity.y = move_toward(velocity.y, FALL_SPEED, GRAVITY * delta)
 
-	if is_on_floor():
-		coyote = 0.1
+	if is_on_floor() or is_on_wall():
+		coyote = 0.3
 		walling = false
 	else:
 		coyote -= delta
@@ -108,23 +108,6 @@ func _physics_process(delta: float) -> void:
 	if jump:
 		jump()
 
-	
-	#if jump and (is_on_floor() or walling):
-			#
-		#if walling:
-			#walling = false
-			#jump_cooldown = 0
-			#velocity.x = last_dir * JUMP_VELOCITY
-			#last_dir = -last_dir
-			#$AnimatedSprite2D.flip_h = last_dir == 1
-			#velocity.y = JUMP_VELOCITY
-		#else:
-			#velocity.y = JUMP_VELOCITY
-
-				# audio_manager.play_audio(MONKEY_HOHO_1)
-
-	# Get the input direction and handle the movement/deceleration.
-	# As good practice, you should replace UI actions with custom gameplay actions.
 	var direction := Input.get_axis("ui_left", "ui_right")
 	if direction or jump:
 		if cage:
@@ -136,9 +119,6 @@ func _physics_process(delta: float) -> void:
 	
 	if direction:
 		velocity.x = move_toward(velocity.x, direction * SPEED, ACCEELLERATION * delta)
-		#if jump_cooldown <= 0:
-		#	last_dir = sign(direction)
-		#	velocity.x += direction * run_speed * delta
 		if is_on_floor():
 			$AnimatedSprite2D.play("run")
 		$AnimatedSprite2D.flip_h = direction == 1
@@ -147,10 +127,10 @@ func _physics_process(delta: float) -> void:
 		velocity.x = move_toward(velocity.x, 0, ACCEELLERATION * delta)
 		print(velocity.x)
 		
-	if !is_on_floor() and !walling:
+	if !is_on_floor() and !is_on_wall():
 		$AnimatedSprite2D.play("jump")
 		has_landed = false
-	elif !is_on_floor() and walling:
+	elif is_on_wall_only():
 		$AnimatedSprite2D.play("wall_jump")
 	else:
 		if has_landed == false:
