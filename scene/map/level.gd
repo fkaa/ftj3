@@ -14,6 +14,8 @@ var section_map: Dictionary[String, Array] = {
 		preload("res://scene/map/sections/a.tscn"),
 		preload("res://scene/map/sections/b.tscn"),
 		preload("res://scene/map/sections/c.tscn"),
+		preload("res://scene/map/sections/d.tscn"),
+		preload("res://scene/map/sections/e.tscn"),
 	],
 }
 

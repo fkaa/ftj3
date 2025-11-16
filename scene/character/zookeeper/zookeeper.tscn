@@ -6,7 +6,7 @@
 [ext_resource type="Texture2D" uid="uid://pwkuljb6n4oe" path="res://asset/spritesheets/sprite_sheet_keeper.png" id="4_54yyc"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_qmbn4"]
-height = 46.0
+height = 56.0
 
 [sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_50fiq"]
 size = Vector2(7, 8)
@@ -157,6 +157,7 @@ collision_mask = 4
 script = ExtResource("1_tutih")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(-1, -5)
 shape = SubResource("CapsuleShape2D_qmbn4")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
