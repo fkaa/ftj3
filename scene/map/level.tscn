@@ -8,9 +8,9 @@
 [ext_resource type="AudioStream" uid="uid://cdqycmlt06x4b" path="res://asset/music/monke_trouble.wav" id="8_5ivi6"]
 
 [sub_resource type="NavigationPolygon" id="NavigationPolygon_cx6pn"]
-vertices = PackedVector2Array(1325.25, 373.8672, -1324.7188, 341.10938, -1374.2188, -314.14844, 1343.7266, -354.84375)
+vertices = PackedVector2Array(335.03125, 860.0781, -354.03125, 865.90625, -359.96094, -876.39844, 340.96094, -905.5703)
 polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3)])
-outlines = Array[PackedVector2Array]([PackedVector2Array(-1385, -324, -1334, 351, 1335, 384, 1354, -365)])
+outlines = Array[PackedVector2Array]([PackedVector2Array(-370, -886, -364, 876, 345, 870, 351, -916)])
 source_geometry_mode = 1
 source_geometry_group_name = &"sections"
 

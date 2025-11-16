@@ -12,10 +12,10 @@ var section_map: Dictionary[String, Array] = {
 	"start": [preload("res://scene/map/sections/start.tscn")],
 	"open": [
 		preload("res://scene/map/sections/a.tscn"),
-		preload("res://scene/map/sections/b.tscn"),
-		preload("res://scene/map/sections/c.tscn"),
-		preload("res://scene/map/sections/d.tscn"),
-		preload("res://scene/map/sections/e.tscn"),
+		#preload("res://scene/map/sections/b.tscn"),
+		#preload("res://scene/map/sections/c.tscn"),
+		#preload("res://scene/map/sections/d.tscn"),
+		#preload("res://scene/map/sections/e.tscn"),
 	],
 }
 
@@ -24,9 +24,10 @@ var sections: Array[Node2D] = []
 func _ready() -> void:
 	var start = section_map["start"][0].instantiate()
 	var first = section_map["open"][0].instantiate()
-	first.position.x += 608
 	sections_nodes.add_child(start)
 	sections_nodes.add_child(first)
+	first.position.y -= start.bounds.y
+
 	navigation_region_2d.bake_navigation_polygon(true)
 	sections.push_back(start)
 	sections.push_back(first)
@@ -41,14 +42,14 @@ func _ready() -> void:
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
 	var last_section = sections.back()
-	if monkey.position.x > (last_section.position.x - 200):
+	if monkey.position.y < (last_section.position.y + 200):
 		add_new_section(last_section)
 	
 	const camera_margin = 100
-	if monkey.position.x - camera_margin > camera_2d.position.x:
-		camera_2d.position.x = monkey.position.x- camera_margin
-	if monkey.position.x + camera_margin < camera_2d.position.x:
-		camera_2d.position.x = monkey.position.x+ camera_margin 
+	if monkey.position.y - camera_margin > camera_2d.position.y:
+		camera_2d.position.y = monkey.position.y- camera_margin
+	if monkey.position.y + camera_margin < camera_2d.position.y:
+		camera_2d.position.y = monkey.position.y+ camera_margin 
 	
 	
 	pass
@@ -59,11 +60,11 @@ func add_new_section(last_section: Node2D):
 	
 	var scene: Section = section.instantiate()
 	scene.position = last_section.position
-	scene.position.x += 608
+	scene.position.y = last_section.position.y - last_section.bounds.y
 	
 
 	sections_nodes.add_child(scene)
-	navigation_region_2d.position.x = monkey.position.x
+	navigation_region_2d.position.y = monkey.position.x
 	navigation_region_2d.bake_navigation_polygon(true)
 
 	sections.push_back(scene)
